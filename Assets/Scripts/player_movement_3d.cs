@@ -10,7 +10,7 @@ public class player_movement_3d : MonoBehaviour
 
     public float move_speed = 5.0f;
     public float rotation_speed;
-    public float jump_force = 5.0f;
+    public float jump_force;
     public float vertical_speed;
 
     public Transform groundCheck;
@@ -28,6 +28,7 @@ public class player_movement_3d : MonoBehaviour
         animator = GetComponent<Animator>();
         ray_lenght = 0.3f;
         rotation_speed = 2.0f;
+        jump_force = 7.5f;
         //animator = GetComponent<Animator>();
     }
 
