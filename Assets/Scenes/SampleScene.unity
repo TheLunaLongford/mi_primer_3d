@@ -48529,7 +48529,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-7104
+  m_Name: pb_Mesh23874
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -49703,6 +49703,8 @@ MonoBehaviour:
   is_on_ground: 0
   move_speed: 5
   rotation_speed: 5
+  jump_force: 5
+  vertical_speed: 0
   groundCheck: {fileID: 1477478664}
   groundMask:
     serializedVersion: 2
@@ -49722,8 +49724,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477478662}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: d069dbf87d90f8848994e16e1083f7de, type: 3}
+  m_Controller: {fileID: 9100000, guid: 6833a0a3da4e8304d9563bb98dd46f2f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

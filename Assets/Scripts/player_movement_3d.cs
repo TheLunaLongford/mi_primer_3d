@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class player_movement_3d : MonoBehaviour
 {
-    private float ray_lenght = 100.0f;
+    private float ray_lenght;
     public LayerMask ground;
     public bool is_on_ground;
 
     public float move_speed = 5.0f;
-    public float rotation_speed = 5.0f;
+    public float rotation_speed;
     public float jump_force = 5.0f;
     public float vertical_speed;
 
@@ -17,7 +17,7 @@ public class player_movement_3d : MonoBehaviour
     public LayerMask groundMask;
 
     private CharacterController characterController;
-    //private Animator animator;
+    private Animator animator;
 
     public Transform camera_transform;
 
@@ -25,6 +25,9 @@ public class player_movement_3d : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+        ray_lenght = 0.3f;
+        rotation_speed = 2.0f;
         //animator = GetComponent<Animator>();
     }
 
@@ -48,12 +51,9 @@ public class player_movement_3d : MonoBehaviour
         right.Normalize();
 
         Vector3 move_direction = forward * move_vertical + right * move_horizontal;
-
+        is_character_moving(move_direction);
         // mover el personaje mientras esta tocando el piso
-        if (is_on_ground)
-        {
-            characterController.Move(move_direction * move_speed * Time.deltaTime);
-        }
+        characterController.Move(move_direction * move_speed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump") && is_on_ground)
         {
@@ -65,7 +65,6 @@ public class player_movement_3d : MonoBehaviour
             Quaternion to_rotation = Quaternion.LookRotation(move_direction);
             transform.rotation = Quaternion.Lerp(transform.rotation, to_rotation, rotation_speed * Time.deltaTime);
         }
-
         // Gravedad
         vertical_speed += Physics.gravity.y * Time.deltaTime;
         // movimiento vertical 
@@ -76,20 +75,27 @@ public class player_movement_3d : MonoBehaviour
 
     public void is_character_on_floor()
     {
-
-        //if (
-        //    Physics2D.Raycast(this.transform.position, Vector2.down, ray_lenght, ground)
-        //    || (Physics2D.Raycast(this.transform.position + (new Vector3(0.6f, 0, 0)), Vector2.down, ray_lenght, ground))
-        //    || (Physics2D.Raycast(this.transform.position + (new Vector3(-0.6f, 0, 0)), Vector2.down, ray_lenght, ground))
-        //   )
-
         if (Physics.CheckSphere(groundCheck.position, ray_lenght, groundMask)) 
         {
+            animator.SetBool("on_ground", true);
             is_on_ground = true;
         }
         else
         {
+            animator.SetBool("on_ground", false);
             is_on_ground = false;
+        }
+    }
+
+    public void is_character_moving(Vector3 movimiento)
+    {
+        if (movimiento != Vector3.zero)
+        {
+            animator.SetBool("on_move", true);
+        }
+        else
+        {
+            animator.SetBool("on_move", false);
         }
     }
 }
