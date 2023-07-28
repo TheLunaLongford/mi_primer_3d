@@ -9,6 +9,7 @@ public class player_check_points : MonoBehaviour
 
     public Transform[] puntos;
     public Transform current_check;
+    public int current_check_index;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class player_check_points : MonoBehaviour
 
         puntos = load_checkpoints();
         current_check = puntos[initial_position];
+        current_check_index = initial_position;
         player.transform.position = current_check.transform.position;
     }
 
@@ -34,6 +36,18 @@ public class player_check_points : MonoBehaviour
             puntos[i] = checkpoints.transform.GetChild(i); 
         }
         return puntos;
+    }
+
+    public void update_current_check(int nuevo_check)
+    {
+        current_check = puntos[nuevo_check];
+        current_check_index = nuevo_check;
+    }
+
+    public void move_player_to_current_check()
+    {
+        Debug.Log(current_check);
+        player.transform.position = current_check.transform.position;
     }
 
 }

@@ -7,6 +7,7 @@ public class player_movement_3d : MonoBehaviour
     private float ray_lenght;
     public LayerMask ground;
     public bool is_on_ground;
+    public bool is_on_deadfloor;
 
     public float move_speed = 5.0f;
     public float rotation_speed;
@@ -15,20 +16,26 @@ public class player_movement_3d : MonoBehaviour
 
     public Transform groundCheck;
     public LayerMask groundMask;
+    public Transform deadFloorCheck;
+    public LayerMask deadFloorMask;
 
     private CharacterController characterController;
     private Animator animator;
 
     public Transform camera_transform;
 
+    private player_check_points player_check_points;
+
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        player_check_points = GetComponent<player_check_points>();
         animator = GetComponent<Animator>();
         ray_lenght = 0.3f;
         rotation_speed = 2.0f;
         jump_force = 7.5f;
+        is_on_deadfloor = false;
         //animator = GetComponent<Animator>();
     }
 
@@ -53,26 +60,36 @@ public class player_movement_3d : MonoBehaviour
 
         Vector3 move_direction = forward * move_vertical + right * move_horizontal;
         is_character_moving(move_direction);
-        // mover el personaje mientras esta tocando el piso
-        characterController.Move(move_direction * move_speed * Time.deltaTime);
-
-        if (Input.GetButtonDown("Jump") && is_on_ground)
+        is_character_out_map();
+        
+        // Ask if is on the button, otherwise character controller interference with transform.position
+        if (!is_on_deadfloor)
         {
-            vertical_speed = jump_force;
-        }
+            // mover el personaje mientras esta tocando el piso
+            characterController.Move(move_direction * move_speed * Time.deltaTime);
+            if (Input.GetButtonDown("Jump") && is_on_ground)
+            {
+                vertical_speed = jump_force;
+            }
 
-        if (move_direction != Vector3.zero)
-        {
-            Quaternion to_rotation = Quaternion.LookRotation(move_direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, to_rotation, rotation_speed * Time.deltaTime);
+            if (move_direction != Vector3.zero)
+            {
+                Quaternion to_rotation = Quaternion.LookRotation(move_direction);
+                transform.rotation = Quaternion.Lerp(transform.rotation, to_rotation, rotation_speed * Time.deltaTime);
+            }
+            // Gravedad
+            vertical_speed += Physics.gravity.y * Time.deltaTime;
+            // movimiento vertical 
+            Vector3 vertical_movement = new Vector3(0.0f, vertical_speed, 0.0f);
+            // mover character controller
+            characterController.Move(vertical_movement * Time.deltaTime);
         }
-        // Gravedad
-        vertical_speed += Physics.gravity.y * Time.deltaTime;
-        // movimiento vertical 
-        Vector3 vertical_movement = new Vector3(0.0f, vertical_speed, 0.0f);
-        // mover character controller
-        characterController.Move(vertical_movement * Time.deltaTime);
-    }
+        else
+        {
+            return_player();
+        }
+        
+     }
 
     public void is_character_on_floor()
     {
@@ -103,11 +120,20 @@ public class player_movement_3d : MonoBehaviour
 
     public void is_character_out_map()
     {
-        if (Physics.CheckSphere(groundCheck.position, ray_lenght, groundMask))
+        Debug.Log("Estoy preguntando");
+        if (Physics.CheckSphere(deadFloorCheck.position, ray_lenght, deadFloorMask))
         {
-            // Regresar al ultimo save point
-
-            // Hacer daño
+            is_on_deadfloor = true;
         }
+        else
+        {
+            is_on_deadfloor = false;
+        }
+    }
+
+    public void return_player()
+    {
+        Debug.Log("Si aqui estoy");
+        player_check_points.move_player_to_current_check();
     }
 }

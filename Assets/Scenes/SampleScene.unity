@@ -14753,7 +14753,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-181192
+  m_Name: pb_Mesh24450
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -65114,6 +65114,7 @@ GameObject:
   - component: {fileID: 1437965701}
   - component: {fileID: 1437965700}
   - component: {fileID: 1437965699}
+  - component: {fileID: 1437965703}
   m_Layer: 6
   m_Name: piso mortal
   m_TagString: Untagged
@@ -65178,7 +65179,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 978bbcf5050244f1b95128c04103f628, type: 2}
+  - {fileID: 2100000, guid: 980c24c5a501a9a429356d191ad356a9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -65417,6 +65418,19 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &1437965703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437965697}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aba65a8f5a62574cb921dfc9480f065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1477478662}
 --- !u!1 &1447443565
 GameObject:
   m_ObjectHideFlags: 0
@@ -66157,6 +66171,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   is_on_ground: 0
+  is_on_deadfloor: 0
   move_speed: 5
   rotation_speed: 5
   jump_force: 5
@@ -66165,6 +66180,10 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  deadFloorCheck: {fileID: 1477478664}
+  deadFloorMask:
+    serializedVersion: 2
+    m_Bits: 64
   camera_transform: {fileID: 963194228}
 --- !u!4 &1477478664 stripped
 Transform:
@@ -66225,6 +66244,7 @@ MonoBehaviour:
   checkpoints: {fileID: 1789696185}
   puntos: []
   current_check: {fileID: 0}
+  current_check_index: 0
 --- !u!1 &1481333760
 GameObject:
   m_ObjectHideFlags: 0
