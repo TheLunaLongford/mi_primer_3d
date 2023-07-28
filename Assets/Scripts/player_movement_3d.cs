@@ -99,4 +99,15 @@ public class player_movement_3d : MonoBehaviour
             animator.SetBool("on_move", false);
         }
     }
+
+
+    public void is_character_out_map()
+    {
+        if (Physics.CheckSphere(groundCheck.position, ray_lenght, groundMask))
+        {
+            // Regresar al ultimo save point
+
+            // Hacer daño
+        }
+    }
 }
