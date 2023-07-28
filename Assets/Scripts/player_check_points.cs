@@ -14,7 +14,7 @@ public class player_check_points : MonoBehaviour
     void Start()
     {
         // Load and move character into the desired check-point
-        int initial_position = 0;
+        int initial_position = 3;
         // 0 = start of the circuit
         // 1 = first test
         // 2 = second test
