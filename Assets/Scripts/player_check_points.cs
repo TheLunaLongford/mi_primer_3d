@@ -16,9 +16,9 @@ public class player_check_points : MonoBehaviour
         // Load and move character into the desired check-point
         int initial_position = 3;
         // 0 = start of the circuit
-        // 1 = first test
-        // 2 = second test
-        // 3 = third test 
+        // 1 = first test: vertical climb
+        // 2 = second test: choice platforms
+        // 3 = third test: cylinder tower
         // 4 = end of third test
 
         puntos = load_checkpoints();
