@@ -46,7 +46,7 @@ public class player_check_points : MonoBehaviour
 
     public void move_player_to_current_check()
     {
-        Debug.Log(current_check);
+        //Debug.Log(current_check);
         player.transform.position = current_check.transform.position;
     }
 
