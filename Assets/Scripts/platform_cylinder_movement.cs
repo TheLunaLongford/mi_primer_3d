@@ -35,13 +35,12 @@ public class platform_cylinder_movement : MonoBehaviour
             Transform A = transform;
             Transform B = dir_to;
 
-            Vector3 direccion = new Vector3(
-                A.transform.position.x - B.transform.position.x,
-                0.0f,
-                A.transform.position.z - B.transform.position.z
-                ).normalized;
-
-            transform.Translate(direccion * movement_speed * Time.deltaTime);
+            float step = movement_speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(
+                new Vector3(A.transform.position.x, A.transform.position.y, A.transform.position.z),
+                new Vector3(B.transform.position.x, A.transform.position.y, B.transform.position.z),
+                step
+                );
 
             if (
                     (
